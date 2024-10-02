@@ -95,8 +95,6 @@ const sameFrequencyRefactored = (arr1, arr2) => {
     if (obj2[key ** 2] !== obj1[key]) {
       return false;
     }
-    // delete obj2[key**2]
   }
   return true;
-  console.log("obj1", obj1, obj2);
 };

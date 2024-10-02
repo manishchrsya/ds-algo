@@ -185,7 +185,7 @@ console.log("resultFindMissingElement", resultFindMissingElement);
  *
  *
  *
- * multi pointer pattern
+ * multiple pointer pattern
  *
  *
  *
@@ -212,3 +212,157 @@ const sumZero = (arr) => {
 };
 const sumZeroResult = sumZero([-3, -2, -1, 0, -1, 9, 4]);
 console.log("sumZeroResult", sumZeroResult);
+
+/**
+ * Example:- 2 count unique values
+ * */
+
+const countUnique = (arr) => {
+  let left = 0;
+  let right = 1;
+  let count = 0;
+  if (arr.length === 0) {
+    return count;
+  }
+  while (left < arr.length) {
+    if (arr[left] === arr[right]) {
+      right = right + 1;
+    } else {
+      count += 1;
+      left += 1;
+      right = left + 1;
+    }
+  }
+  return count;
+};
+
+/**
+ * Example 3:- remove the duplicates from the array
+ *
+ * */
+
+const removeDuplicats = (arr) => {
+  let left = 0;
+  let right = 1;
+  let uniqueArr = [];
+  while (left < arr.length) {
+    if (arr[left] === arr[right]) {
+      right = right + 1;
+    } else {
+      uniqueArr.push(arr[left]);
+      left = right;
+      right += 1;
+    }
+  }
+  return uniqueArr;
+};
+
+const result1 = removeDuplicats([0, 0, 1, 1, 2, 2, 3, 4]);
+console.log("result", result1);
+
+/**
+ * Example 4:-Container With Most Water
+ *  Difficulty: Medium
+ *  Problem Statement: You are given an array height where height[i] represents the height of a vertical line drawn at position i. Find the two lines that together with the x-axis form a container, such that the container can store the most water.
+ *  Return the maximum amount of water the container can store.
+ * */
+
+const containerWithMostWater = (arr) => {
+  let left = 0;
+  let right = 1;
+  let volume = 0;
+  while (left < arr.length) {
+    const height = Math.min(arr[left], arr[right]);
+    const width = right - left;
+    const newVolume = height * width;
+    if (volume < newVolume) {
+      volume = newVolume;
+    }
+    if (right < arr.length - 1) {
+      right += 1;
+    } else {
+      left += 1;
+      right = left + 1;
+    }
+  }
+
+  return volume;
+};
+
+const containerWithMostWaterResult = containerWithMostWater([
+  1, 8, 6, 2, 5, 4, 8, 3, 7,
+]);
+console.log("result", containerWithMostWaterResult);
+
+/**
+ * Sliding window
+ *
+ * */
+
+/**
+ * Example 1:--
+ *
+ *
+ * write a func called maxSubarraySum which accepts an array of
+ * integers and a number called n. The func should
+ * calculate the max sum of n consecutive elements.
+ * */
+const func = (arr, num) => {
+  let max = 0;
+  let temp = 0;
+  if (num > arr.length) {
+    return null;
+  }
+  for (let i = 0; i < num; i++) {
+    max += arr[i];
+  }
+  temp = max;
+  for (let i = num; i < arr.length; i++) {
+    temp = temp - arr[i - num] + arr[i];
+    if (temp > max) {
+      max = temp;
+    }
+  }
+  return max;
+};
+
+const funcResult = func([1, 2, 5, 2, 8, 1, 5], 3);
+
+console.log("result", funcResult);
+
+/**
+ * Divide and conquer method
+ * */
+
+/**
+ * Search the number in the sorted array of integers
+ *
+ * */
+
+/**
+ * Binary search solution
+ * */
+
+const BinarySearchFunc = (arr, val) => {
+  let min = 0;
+  let max = arr.length - 1;
+  while (min <= max) {
+    const middle = Math.round((min + max) / 2);
+    const currentElement = arr[middle];
+    if (currentElement < val) {
+      min = middle + 1;
+    } else if (currentElement > val) {
+      max = middle - 1;
+    } else {
+      return middle;
+    }
+  }
+  return -1;
+};
+
+const BinarySearchFuncResult = BinarySearchFunc(
+  [1, 2, 3, 5, 6, 8, 9, 12, 15, 16, 29],
+  21
+);
+
+console.log("result", BinarySearchFuncResult);
